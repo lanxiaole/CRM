@@ -35,6 +35,15 @@
       "role": "user",
       "avatar": "",
       "token": "user-token-1771770434810"
+    },
+    {
+      "id": "c612",
+      "username": "cunqinzhi",
+      "password": "123456",
+      "name": "cunqinzhi",
+      "role": "user",
+      "avatar": "",
+      "token": "user-token-1771773796269"
     }
   ],
   "customers": [

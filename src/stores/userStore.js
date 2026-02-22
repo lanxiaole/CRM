@@ -14,30 +14,35 @@ export const useUserStore = defineStore('user', {
     // 登录方法
     async login(loginForm) {
       try {
-        // 调用登录接口，查询匹配的用户
+        // 先根据用户名查询用户
         const res = await request({
           url: '/users',
           method: 'get',
           params: {
-            username: loginForm.username,
-            password: loginForm.password,
+            username: loginForm.username.trim(), // 自动去除首尾空格
           },
         })
 
         if (res.length > 0) {
           const user = res[0]
-          // 保存用户信息和token
-          this.userInfo = user
-          this.token = user.token
-          this.isLoggedIn = true
-          localStorage.setItem('token', user.token)
-          localStorage.setItem('userInfo', JSON.stringify(user))
+          // 再对比密码
+          if (user.password === loginForm.password.trim()) {
+            // 保存用户信息和token
+            this.userInfo = user
+            this.token = user.token
+            this.isLoggedIn = true
+            localStorage.setItem('token', user.token)
+            localStorage.setItem('userInfo', JSON.stringify(user))
 
-          ElMessage.success('登录成功')
-          router.push('/')
-          return true
+            ElMessage.success('登录成功')
+            router.push('/')
+            return true
+          } else {
+            ElMessage.error('密码错误')
+            return false
+          }
         } else {
-          ElMessage.error('用户名或密码错误')
+          ElMessage.error('用户名不存在')
           return false
         }
       } catch (error) {

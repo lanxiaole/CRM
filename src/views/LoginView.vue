@@ -240,6 +240,16 @@ const toggleMode = () => {
   font-weight: 600;
 }
 
+/* 确保表单按钮居中且和输入框同宽 */
+.el-form-item {
+  text-align: center;
+}
+
+.el-form-item .el-button {
+  width: 100%;
+  margin: 0 auto;
+}
+
 .toggle-link {
   text-align: center;
   color: #409eff;
