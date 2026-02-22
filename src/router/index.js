@@ -1,13 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../views/LoginView.vue'
-import Layout from '../layouts/Layout.vue'
-import DashboardView from '../views/DashboardView.vue'
-import CustomerListView from '../views/CustomerListView.vue'
-import CustomerDetailView from '../views/CustomerDetailView.vue'
-import CustomerFormView from '../views/CustomerFormView.vue'
-import UserManageView from '../views/UserManageView.vue'
-import RoleManageView from '../views/RoleManageView.vue'
-import ProfileView from '../views/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,47 +6,47 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginView,
+      component: () => import('../views/LoginView.vue'),
     },
     {
       path: '/',
       name: 'layout',
-      component: Layout,
+      component: () => import('../layouts/Layout.vue'),
       children: [
         {
           path: '',
           name: 'dashboard',
-          component: DashboardView,
+          component: () => import('../views/DashboardView.vue'),
         },
         {
           path: 'customers',
           name: 'customer-list',
-          component: CustomerListView,
+          component: () => import('../views/CustomerListView.vue'),
         },
         {
           path: 'customers/:id',
           name: 'customer-detail',
-          component: CustomerDetailView,
+          component: () => import('../views/CustomerDetailView.vue'),
         },
         {
           path: 'customers/form',
           name: 'customer-form',
-          component: CustomerFormView,
+          component: () => import('../views/CustomerFormView.vue'),
         },
         {
           path: 'users',
           name: 'user-manage',
-          component: UserManageView,
+          component: () => import('../views/UserManageView.vue'),
         },
         {
           path: 'roles',
           name: 'role-manage',
-          component: RoleManageView,
+          component: () => import('../views/RoleManageView.vue'),
         },
         {
           path: 'profile',
           name: 'profile',
-          component: ProfileView,
+          component: () => import('../views/ProfileView.vue'),
         },
       ],
     },
