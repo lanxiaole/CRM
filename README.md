@@ -1,5 +1,7 @@
 # CRM
 
+使用vue3 js搭建的CRM客户关系管理系统
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
