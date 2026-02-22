@@ -58,7 +58,7 @@ const router = createRouter({
   ],
 })
 
-// 全局前置守卫 - Vue Router 官方推荐写法（v4+ 支持返回值模式）
+// 全局前置守卫
 router.beforeEach((to, from) => {
   const isLoggedIn = !!localStorage.getItem('token')
 
