@@ -1,5 +1,6 @@
 <script setup>
 import Sidebar from '../components/Sidebar.vue'
+import Navbar from '../components/Navbar.vue'
 </script>
 
 <template>
@@ -8,7 +9,12 @@ import Sidebar from '../components/Sidebar.vue'
     <Sidebar />
     <!-- 右侧内容区 -->
     <div class="main-content">
-      <router-view />
+      <!-- 顶部导航栏 -->
+      <Navbar />
+      <!-- 页面内容区 -->
+      <div class="page-content">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +28,13 @@ import Sidebar from '../components/Sidebar.vue'
 
 .main-content {
   flex: 1;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   background-color: #f5f7fa;
+}
+
+.page-content {
+  flex: 1;
+  overflow-y: auto;
 }
 </style>
