@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/userStore'
+import Breadcrumb from './Breadcrumb.vue'
 import { FullScreen, Bell, Setting, Lock, SwitchButton } from '@element-plus/icons-vue'
 
 const router = useRouter()
@@ -20,10 +21,7 @@ const handleLogout = () => {
   <div class="navbar">
     <!-- 左侧面包屑 -->
     <div class="navbar-left">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>仪表盘</el-breadcrumb-item>
-      </el-breadcrumb>
+      <Breadcrumb />
     </div>
 
     <!-- 右侧操作区 -->

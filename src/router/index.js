@@ -17,36 +17,57 @@ const router = createRouter({
           path: '',
           name: 'dashboard',
           component: () => import('../views/DashboardView.vue'),
+          meta: {
+            breadcrumb: '仪表盘'
+          }
         },
         {
           path: 'customers',
           name: 'customer-list',
           component: () => import('../views/CustomerListView.vue'),
+          meta: {
+            breadcrumb: '客户列表'
+          }
         },
         {
           path: 'customers/:id',
           name: 'customer-detail',
           component: () => import('../views/CustomerDetailView.vue'),
+          meta: {
+            breadcrumb: '客户详情'
+          }
         },
         {
           path: 'customers/form',
           name: 'customer-form',
           component: () => import('../views/CustomerFormView.vue'),
+          meta: {
+            breadcrumb: '客户表单'
+          }
         },
         {
           path: 'users',
           name: 'user-manage',
           component: () => import('../views/UserManageView.vue'),
+          meta: {
+            breadcrumb: '用户管理'
+          }
         },
         {
           path: 'roles',
           name: 'role-manage',
           component: () => import('../views/RoleManageView.vue'),
+          meta: {
+            breadcrumb: '角色管理'
+          }
         },
         {
           path: 'profile',
           name: 'profile',
           component: () => import('../views/ProfileView.vue'),
+          meta: {
+            breadcrumb: '个人设置'
+          }
         },
       ],
     },
