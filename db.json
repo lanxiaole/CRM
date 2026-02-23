@@ -67,67 +67,62 @@
     {
       "id": 1,
       "name": "张三",
-      "phone": "13800138000",
-      "status": "following",
-      "followUser": "管理员",
-      "createTime": "2024-02-20 10:30:00"
-    },
-    {
-      "id": 2,
-      "name": "李四",
-      "phone": "13800138001",
-      "status": "success",
-      "followUser": "普通用户",
-      "createTime": "2024-02-21 14:20:00"
-    },
-    {
-      "id": 3,
-      "name": "王五",
-      "phone": "13800138002",
-      "status": "lost",
-      "followUser": "管理员",
-      "createTime": "2024-02-22 09:15:00"
-    },
-    {
-      "id": 4,
-      "name": "赵六",
-      "phone": "13800138003",
-      "status": "following",
-      "followUser": "普通用户",
-      "createTime": "2024-02-22 16:45:00"
-    },
-    {
-      "id": "1",
-      "name": "张三",
       "phone": "13800138001",
       "email": "zhangsan@example.com",
       "company": "阿里巴巴",
       "level": "A",
-      "status": "跟进中",
+      "status": "following",
+      "followUser": "管理员",
       "remark": "重要客户，需求明确",
-      "createTime": "2024-01-15"
+      "createTime": "2024-01-15 10:30:00"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "李四",
       "phone": "13800138002",
       "email": "lisi@example.com",
       "company": "腾讯科技",
       "level": "B",
-      "status": "已成交",
+      "status": "success",
+      "followUser": "普通用户",
       "remark": "已签约年付套餐",
-      "createTime": "2024-02-20"
+      "createTime": "2024-02-20 14:20:00"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "王五",
       "phone": "13800138003",
       "email": "wangwu@example.com",
       "company": "字节跳动",
       "level": "A",
-      "status": "待跟进",
+      "status": "following",
+      "followUser": "管理员",
       "remark": "新线索，待联系",
-      "createTime": "2024-03-10"
+      "createTime": "2024-03-10 09:15:00"
+    },
+    {
+      "id": 4,
+      "name": "赵六",
+      "phone": "13800138004",
+      "email": "zhaoliu@example.com",
+      "company": "百度",
+      "level": "C",
+      "status": "lost",
+      "followUser": "普通用户",
+      "remark": "需求不匹配，暂时放弃",
+      "createTime": "2024-04-05 16:45:00"
+    },
+    {
+      "id": 5,
+      "name": "孙七",
+      "phone": "13800138005",
+      "email": "sunqi@example.com",
+      "company": "小米",
+      "level": "B",
+      "status": "following",
+      "followUser": "管理员",
+      "remark": "正在跟进中，下周沟通方案",
+      "createTime": "2024-05-12 11:20:00"
     }
   ]
 }

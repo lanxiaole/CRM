@@ -4,12 +4,13 @@ import request from '../utils/request'
  * 客户相关接口
  */
 
-// 获取客户列表
+// 获取客户列表（返回完整响应，包含headers用于获取总条数）
 export const getCustomerListApi = (params) => {
   return request({
     url: '/customers',
     method: 'get',
-    params
+    params,
+    needFullResponse: true,
   })
 }
 
@@ -18,7 +19,7 @@ export const addCustomerApi = (data) => {
   return request({
     url: '/customers',
     method: 'post',
-    data
+    data,
   })
 }
 
@@ -27,7 +28,7 @@ export const updateCustomerApi = (id, data) => {
   return request({
     url: `/customers/${id}`,
     method: 'put',
-    data
+    data,
   })
 }
 
@@ -35,7 +36,7 @@ export const updateCustomerApi = (id, data) => {
 export const deleteCustomerApi = (id) => {
   return request({
     url: `/customers/${id}`,
-    method: 'delete'
+    method: 'delete',
   })
 }
 
@@ -43,7 +44,7 @@ export const deleteCustomerApi = (id) => {
 export const getStatusListApi = () => {
   return request({
     url: '/statuses',
-    method: 'get'
+    method: 'get',
   })
 }
 
@@ -52,5 +53,5 @@ export default {
   addCustomerApi,
   updateCustomerApi,
   deleteCustomerApi,
-  getStatusListApi
+  getStatusListApi,
 }
