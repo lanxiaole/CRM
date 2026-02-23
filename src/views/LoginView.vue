@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useUserStore } from '../stores/userStore'
-import request from '../utils/request'
+import { registerApi } from '../api/user'
 import { ElMessage } from 'element-plus'
 
 const userStore = useUserStore()
@@ -75,10 +75,8 @@ const handleRegister = async () => {
   await formRef.value.validate()
   try {
     // 检查用户名是否已存在
-    const existUser = await request({
-      url: '/users',
-      method: 'get',
-      params: { username: registerForm.username },
+    const existUser = await registerApi({
+      username: registerForm.username,
     })
     if (existUser.length > 0) {
       ElMessage.error('用户名已存在')
@@ -86,17 +84,13 @@ const handleRegister = async () => {
     }
 
     // 注册新用户
-    await request({
-      url: '/users',
-      method: 'post',
-      data: {
-        username: registerForm.username,
-        password: registerForm.password,
-        name: registerForm.name,
-        role: 'user',
-        avatar: '',
-        token: `user-token-${Date.now()}`,
-      },
+    await registerApi({
+      username: registerForm.username,
+      password: registerForm.password,
+      name: registerForm.name,
+      role: 'user',
+      avatar: '',
+      token: `user-token-${Date.now()}`,
     })
 
     ElMessage.success('注册成功，请登录')

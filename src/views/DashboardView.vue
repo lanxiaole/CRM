@@ -5,7 +5,7 @@ import { LineChart } from 'echarts/charts'
 import { TitleComponent, TooltipComponent, GridComponent } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
 import VChart from 'vue-echarts'
-import request from '../utils/request'
+import { getDashboardDataApi } from '../api/dashboard'
 
 echarts.use([TitleComponent, TooltipComponent, GridComponent, LineChart, CanvasRenderer])
 
@@ -19,7 +19,7 @@ const stats = ref({
 const chartOption = ref({})
 
 const getDashboardData = async () => {
-  const res = await request.get('/dashboard')
+  const res = await getDashboardDataApi()
   // 统计数据
   stats.value = res.stats
   // 图表数据

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import request from '../utils/request'
+import { loginApi } from '../api/user'
 import router from '../router'
 import { ElMessage } from 'element-plus'
 
@@ -15,12 +15,8 @@ export const useUserStore = defineStore('user', {
     async login(loginForm) {
       try {
         // 先根据用户名查询用户
-        const res = await request({
-          url: '/users',
-          method: 'get',
-          params: {
-            username: loginForm.username.trim(), // 自动去除首尾空格
-          },
+        const res = await loginApi({
+          username: loginForm.username.trim(), // 自动去除首尾空格
         })
 
         if (res.length > 0) {

@@ -58,7 +58,44 @@
       "token": "user-token-1771773796269"
     }
   ],
+  "statuses": [
+    { "value": "following", "label": "跟进中" },
+    { "value": "success", "label": "已成交" },
+    { "value": "lost", "label": "已流失" }
+  ],
   "customers": [
+    {
+      "id": 1,
+      "name": "张三",
+      "phone": "13800138000",
+      "status": "following",
+      "followUser": "管理员",
+      "createTime": "2024-02-20 10:30:00"
+    },
+    {
+      "id": 2,
+      "name": "李四",
+      "phone": "13800138001",
+      "status": "success",
+      "followUser": "普通用户",
+      "createTime": "2024-02-21 14:20:00"
+    },
+    {
+      "id": 3,
+      "name": "王五",
+      "phone": "13800138002",
+      "status": "lost",
+      "followUser": "管理员",
+      "createTime": "2024-02-22 09:15:00"
+    },
+    {
+      "id": 4,
+      "name": "赵六",
+      "phone": "13800138003",
+      "status": "following",
+      "followUser": "普通用户",
+      "createTime": "2024-02-22 16:45:00"
+    },
     {
       "id": "1",
       "name": "张三",
