@@ -192,13 +192,13 @@ onMounted(() => {
         </el-table-column>
       </el-table>
 
-      <!-- 分页 -->
-      <div class="pagination-container">
+      <!-- 分页区域 -->
+      <div class="pagination-wrap" style="display: flex; justify-content: center; margin-top: 20px">
         <el-pagination
           v-model:current-page="pageNum"
           v-model:page-size="pageSize"
-          :total="total"
           :page-sizes="[10, 20, 50, 100]"
+          :total="total"
           layout="total, sizes, prev, pager, next, jumper"
           @size-change="handleSizeChange"
           @current-change="handlePageChange"

@@ -125,8 +125,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="customer-form-container">
-    <el-card class="customer-form-card" :loading="loading">
+  <div
+    class="customer-form-container"
+    style="padding: 20px; display: flex; justify-content: center"
+  >
+    <el-card class="customer-form-card" :loading="loading" style="width: 100%; max-width: 900px">
       <template #header>
         <div class="card-header">
           <span>{{ isEdit ? '编辑客户' : '新增客户' }}</span>

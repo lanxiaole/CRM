@@ -177,8 +177,8 @@ onMounted(async () => {
         </el-table-column>
       </el-table>
 
-      <!-- 底部分页 -->
-      <div class="pagination-wrap">
+      <!-- 分页区域 -->
+      <div class="pagination-wrap" style="display: flex; justify-content: center; margin-top: 20px">
         <el-pagination
           layout="total, sizes, prev, pager, next, jumper"
           :total="total"
