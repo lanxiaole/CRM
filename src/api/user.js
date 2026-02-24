@@ -39,9 +39,19 @@ export const deleteUserApi = (id) => {
   })
 }
 
+// 编辑用户
+export const updateUserApi = (id, data) => {
+  return request({
+    url: `/users/${id}`,
+    method: 'put',
+    data
+  })
+}
+
 export default {
   loginApi,
   registerApi,
   getUserListApi,
-  deleteUserApi
+  deleteUserApi,
+  updateUserApi
 }

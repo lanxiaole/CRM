@@ -1,23 +1,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useList } from '../composables/useList'
 import { getCustomerListApi, deleteCustomerApi, getStatusListApi } from '../api/customer'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 
 const router = useRouter()
 
-// 响应式变量定义
-const tableData = ref([])
-const total = ref(0)
-const pageNum = ref(1)
-const pageSize = ref(10)
-const loading = ref(false)
-const searchForm = ref({
-  name: '',
-  phone: '',
-  status: '',
-})
 const statusOptions = ref([])
 // 状态类型颜色映射
 const statusTypeMap = {
@@ -26,69 +16,37 @@ const statusTypeMap = {
   lost: 'danger',
 }
 
-// 获取客户列表数据
-const fetchData = async () => {
-  loading.value = true
-  try {
-    // 获取所有客户数据
-    const allData = await getCustomerListApi()
-
-    // 1. 前端搜索过滤
-    let filteredData = [...allData]
-
-    if (searchForm.value.name) {
-      filteredData = filteredData.filter((item) => item.name.includes(searchForm.value.name))
+// 使用封装的列表逻辑
+const {
+  tableData,
+  total,
+  pageNum,
+  pageSize,
+  loading,
+  searchForm,
+  fetchData,
+  handleSearch,
+  handleReset,
+  handlePageChange,
+  handleSizeChange,
+} = useList(getCustomerListApi, {
+  initialSearchForm: { name: '', phone: '', status: '' },
+  defaultPageSize: 10,
+  // 自定义过滤逻辑，状态字段是精确匹配
+  customFilter: (data, searchForm) => {
+    let filteredData = [...data]
+    if (searchForm.name) {
+      filteredData = filteredData.filter((item) => item.name.includes(searchForm.name))
     }
-
-    if (searchForm.value.phone) {
-      filteredData = filteredData.filter((item) => item.phone.includes(searchForm.value.phone))
+    if (searchForm.phone) {
+      filteredData = filteredData.filter((item) => item.phone.includes(searchForm.phone))
     }
-
-    if (searchForm.value.status) {
-      filteredData = filteredData.filter((item) => item.status === searchForm.value.status)
+    if (searchForm.status) {
+      filteredData = filteredData.filter((item) => item.status === searchForm.status)
     }
-
-    // 2. 前端分页处理
-    total.value = filteredData.length
-    const start = (pageNum.value - 1) * pageSize.value
-    const end = start + pageSize.value
-    tableData.value = filteredData.slice(start, end)
-  } catch (error) {
-    ElMessage.error('获取客户列表失败')
-    console.error(error)
-  } finally {
-    loading.value = false
-  }
-}
-
-// 搜索方法
-const handleSearch = () => {
-  pageNum.value = 1
-  fetchData()
-}
-
-// 重置方法
-const handleReset = () => {
-  searchForm.value = {
-    name: '',
-    phone: '',
-    status: '',
-  }
-  handleSearch()
-}
-
-// 页码变化
-const handlePageChange = (page) => {
-  pageNum.value = page
-  fetchData()
-}
-
-// 每页条数变化
-const handleSizeChange = (size) => {
-  pageSize.value = size
-  pageNum.value = 1
-  fetchData()
-}
+    return filteredData
+  },
+})
 
 // 新增客户
 const handleAdd = () => {

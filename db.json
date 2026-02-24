@@ -56,15 +56,6 @@
       "token": "user-token-1771770089039"
     },
     {
-      "id": "667b",
-      "username": "lanxiaolea",
-      "password": "123456",
-      "name": "1",
-      "role": "user",
-      "avatar": "",
-      "token": "user-token-1771770434810"
-    },
-    {
       "id": "c612",
       "username": "cunqinzhi",
       "password": "123456",
@@ -94,7 +85,7 @@
   "customers": [
     {
       "id": "1",
-      "name": "张三78",
+      "name": "张三789",
       "phone": "13800138001",
       "email": "zhangsan@example.com",
       "company": "阿里巴巴",
