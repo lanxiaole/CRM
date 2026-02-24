@@ -2,6 +2,7 @@
 import { ref, reactive, onMounted, computed } from 'vue'
 import { useList } from '../composables/useList'
 import { getUserListApi, deleteUserApi, registerApi, updateUserApi } from '../api/user'
+import { getRoleListApi } from '../api/role'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 const dialogVisible = ref(false)
@@ -9,11 +10,8 @@ const dialogTitle = ref('')
 const submitLoading = ref(false)
 const formRef = ref(null)
 
-// 角色选项
-const roleOptions = [
-  { value: 'admin', label: '管理员' },
-  { value: 'user', label: '普通用户' },
-]
+// 角色选项（动态从接口获取）
+const roleOptions = ref([])
 
 // 表单数据
 const form = reactive({
@@ -148,7 +146,19 @@ const handleClose = () => {
 }
 
 // 页面初始化
-onMounted(() => {
+onMounted(async () => {
+  // 获取角色选项
+  try {
+    const roles = await getRoleListApi()
+    roleOptions.value = roles.map((role) => ({
+      value: role.code,
+      label: role.name,
+    }))
+  } catch (error) {
+    ElMessage.error('获取角色列表失败')
+    console.error(error)
+  }
+  // 获取用户列表
   fetchData()
 })
 </script>
