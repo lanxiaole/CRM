@@ -9,7 +9,7 @@ export const loginApi = (params) => {
   return request({
     url: '/users',
     method: 'get',
-    params
+    params,
   })
 }
 
@@ -18,7 +18,7 @@ export const registerApi = (data) => {
   return request({
     url: '/users',
     method: 'post',
-    data
+    data,
   })
 }
 
@@ -27,7 +27,7 @@ export const getUserListApi = (params) => {
   return request({
     url: '/users',
     method: 'get',
-    params
+    params,
   })
 }
 
@@ -35,7 +35,7 @@ export const getUserListApi = (params) => {
 export const deleteUserApi = (id) => {
   return request({
     url: `/users/${id}`,
-    method: 'delete'
+    method: 'delete',
   })
 }
 
@@ -44,7 +44,16 @@ export const updateUserApi = (id, data) => {
   return request({
     url: `/users/${id}`,
     method: 'put',
-    data
+    data,
+  })
+}
+
+// 部分更新用户信息
+export const patchUserApi = (id, data) => {
+  return request({
+    url: `/users/${id}`,
+    method: 'patch',
+    data,
   })
 }
 
@@ -53,5 +62,5 @@ export default {
   registerApi,
   getUserListApi,
   deleteUserApi,
-  updateUserApi
+  updateUserApi,
 }

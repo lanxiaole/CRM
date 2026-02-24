@@ -1,7 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { ElMessage, ElForm } from 'element-plus'
 import { useUserStore } from '../stores/userStore'
+import { patchUserApi } from '../api/user'
 import Breadcrumb from './Breadcrumb.vue'
 import { FullScreen, Bell, Setting, Lock, SwitchButton } from '@element-plus/icons-vue'
 
@@ -10,6 +12,75 @@ const userStore = useUserStore()
 
 // 修改密码弹窗
 const showPwdDialog = ref(false)
+const pwdFormRef = ref(null)
+
+// 密码表单
+const pwdForm = reactive({
+  oldPassword: '',
+  newPassword: '',
+  confirmPassword: '',
+})
+
+// 验证规则
+const pwdRules = {
+  oldPassword: [{ required: true, message: '请输入原密码', trigger: 'blur' }],
+  newPassword: [
+    { required: true, message: '请输入新密码', trigger: 'blur' },
+    { min: 6, max: 20, message: '密码长度在 6 到 20 个字符', trigger: 'blur' },
+  ],
+  confirmPassword: [
+    { required: true, message: '请确认新密码', trigger: 'blur' },
+    {
+      validator: (rule, value, callback) => {
+        if (value !== pwdForm.newPassword) {
+          callback(new Error('两次输入的密码不一致'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur',
+    },
+  ],
+}
+
+// 提交修改密码
+const handlePwdSubmit = async () => {
+  if (!pwdFormRef.value) return
+
+  try {
+    await pwdFormRef.value.validate()
+
+    // 验证原密码是否正确
+    if (pwdForm.oldPassword !== userStore.userInfo.password) {
+      ElMessage.error('原密码错误')
+      return
+    }
+
+    // 新密码不能和原密码相同
+    if (pwdForm.newPassword === pwdForm.oldPassword) {
+      ElMessage.error('新密码不能与原密码相同')
+      return
+    }
+
+    const userId = userStore.userInfo.id
+    await patchUserApi(userId, { password: pwdForm.newPassword })
+
+    // 更新store和localStorage中的密码
+    userStore.userInfo.password = pwdForm.newPassword
+    localStorage.setItem('userInfo', JSON.stringify(userStore.userInfo))
+
+    ElMessage.success('密码修改成功，请下次登录使用新密码')
+
+    // 关闭弹窗并清空表单
+    showPwdDialog.value = false
+    pwdForm.oldPassword = ''
+    pwdForm.newPassword = ''
+    pwdForm.confirmPassword = ''
+  } catch (error) {
+    console.error('密码修改失败:', error)
+    ElMessage.error('密码修改失败，请稍后重试')
+  }
+}
 
 // 退出登录
 const handleLogout = () => {
@@ -64,12 +135,40 @@ const handleLogout = () => {
     </div>
   </div>
 
-  <!-- 修改密码弹窗（占位，后续可完善功能） -->
+  <!-- 修改密码弹窗 -->
   <el-dialog v-model="showPwdDialog" title="修改密码" width="500px">
-    <p>修改密码功能开发中...</p>
+    <el-form ref="pwdFormRef" :model="pwdForm" :rules="pwdRules" label-width="100px">
+      <el-form-item label="原密码" prop="oldPassword">
+        <el-input
+          v-model="pwdForm.oldPassword"
+          type="password"
+          placeholder="请输入原密码"
+          show-password
+        />
+      </el-form-item>
+
+      <el-form-item label="新密码" prop="newPassword">
+        <el-input
+          v-model="pwdForm.newPassword"
+          type="password"
+          placeholder="请输入新密码"
+          show-password
+        />
+      </el-form-item>
+
+      <el-form-item label="确认密码" prop="confirmPassword">
+        <el-input
+          v-model="pwdForm.confirmPassword"
+          type="password"
+          placeholder="请再次输入新密码"
+          show-password
+        />
+      </el-form-item>
+    </el-form>
+
     <template #footer>
       <el-button @click="showPwdDialog = false">取消</el-button>
-      <el-button type="primary">确定</el-button>
+      <el-button type="primary" @click="handlePwdSubmit">确定</el-button>
     </template>
   </el-dialog>
 </template>
