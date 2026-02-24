@@ -48,10 +48,19 @@ export const getStatusListApi = () => {
   })
 }
 
+// 获取客户详情
+export const getCustomerDetailApi = (id) => {
+  return request({
+    url: `/customers/${id}`,
+    method: 'get',
+  })
+}
+
 export default {
   getCustomerListApi,
   addCustomerApi,
   updateCustomerApi,
   deleteCustomerApi,
   getStatusListApi,
+  getCustomerDetailApi,
 }
