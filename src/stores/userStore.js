@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { loginApi } from '../api/user'
+import { getRoleListApi } from '../api/role'
 import router from '../router'
 import { ElMessage } from 'element-plus'
 
@@ -8,6 +9,7 @@ export const useUserStore = defineStore('user', {
     userInfo: {},
     token: localStorage.getItem('token') || '',
     isLoggedIn: !!localStorage.getItem('token'),
+    permissions: JSON.parse(localStorage.getItem('permissions') || '[]'), // 当前用户权限列表
   }),
 
   actions: {
@@ -29,6 +31,14 @@ export const useUserStore = defineStore('user', {
             this.isLoggedIn = true
             localStorage.setItem('token', user.token)
             localStorage.setItem('userInfo', JSON.stringify(user))
+
+            // 获取角色权限列表
+            const roles = await getRoleListApi()
+            const currentRole = roles.find((role) => role.code === user.role)
+            if (currentRole) {
+              this.permissions = currentRole.permissions
+              localStorage.setItem('permissions', JSON.stringify(currentRole.permissions))
+            }
 
             ElMessage.success('登录成功')
             router.push('/')
@@ -53,8 +63,10 @@ export const useUserStore = defineStore('user', {
       this.userInfo = {}
       this.token = ''
       this.isLoggedIn = false
+      this.permissions = []
       localStorage.removeItem('token')
       localStorage.removeItem('userInfo')
+      localStorage.removeItem('permissions')
       ElMessage.success('已退出登录')
       router.push('/login')
     },
